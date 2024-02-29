@@ -2,9 +2,17 @@
 <html>
 <head>
     <title>날짜 형식 입력 확인</title>
-    <!-- 자바스크립트 함수들 -->
+    <style>
+        .container {
+            margin-bottom: 20px;
+        }
+        .description {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
     <script>
-        // 첫 번째 입력 필드의 날짜 유효성을 검사하는 함수
         function validateDate() {
             var input = document.getElementById('dateInput1').value;
             if (!/^\d{8}$/.test(input)) {
@@ -24,35 +32,39 @@
             return true;
         }
 
-        // 입력 필드에 숫자가 아닌 문자가 입력되었을 때 제거하고, 8자리를 초과하는 입력을 자르는 함수
         function validateInput(element) {
             element.value = element.value.replace(/[^0-9]/g, '').slice(0, 8);
         }
     </script>
 </head>
 <body>
-    <!-- 첫 번째 날짜 입력 필드와 확인 버튼 -->
-    <div>
+    <div class="container">
         <input type="text" id="dateInput1" placeholder="YYYYMMDD" maxlength="8">
         <button onclick="validateDate()">확인</button>
-        <!-- 사용자가 날짜를 YYYYMMDD 형식으로 입력하고 확인 버튼을 누르면 validateDate 함수를 호출하여 유효성 검사를 수행합니다. -->
+        <div class="description">첫 번째 입력 필드. '확인' 버튼을 눌러 날짜 형식과 유효성을 검사합니다.</div>
     </div>
     
-    <!-- 두 번째 날짜 입력 필드, HTML5 유효성 검사를 사용 -->
-    <form>
-        <input type="text" id="dateInput2" pattern="\d{8}" title="날짜를 YYYYMMDD 형식으로 입력해주세요. 예: 20240229" required>
-        <input type="submit">
-        <!-- pattern 속성을 사용하여 입력 형식을 YYYYMMDD로 제한합니다. 유효하지 않은 형식을 입력하면 제출 시 알림이 표시됩니다. -->
-    </form>
+    <div class="container">
+        <form>
+            <input type="text" id="dateInput2" pattern="\d{8}" title="날짜를 YYYYMMDD 형식으로 입력해주세요. 예: 20240229" required>
+            <input type="submit">
+            <div class="description">두 번째 입력 필드. HTML5의 pattern 속성을 사용하여 형식을 검사합니다.</div>
+        </form>
+    </div>
   
-    <!-- 세 번째, 네 번째, 다섯 번째 날짜 입력 필드 -->
-    <div>
+    <div class="container">
         <input type="text" id="dateInput3" oninput="validateInput(this)" placeholder="YYYYMMDD" maxlength="8">
-        <!-- 입력 시 숫자가 아닌 문자를 제거하고, 8자리를 초과하는 입력을 자릅니다. -->
+        <div class="description">세 번째 입력 필드. 입력 시 숫자가 아닌 문자를 제거합니다.</div>
+    </div>
+
+    <div class="container">
         <input type="text" id="dateInput4" oninput="validateInput(this)" placeholder="YYYYMMDD" maxlength="8">
-        <!-- 동일한 유효성 검사 로직을 적용합니다. -->
+        <div class="description">네 번째 입력 필드. 동일한 유효성 검사 로직을 적용합니다.</div>
+    </div>
+
+    <div class="container">
         <input type="text" id="dateInput5" oninput="validateInput(this)" onblur="if (this.value.length !== 8) this.value = '';" placeholder="YYYYMMDD" maxlength="8">
-        <!-- onblur 이벤트를 사용하여 포커스가 이동될 때 입력값이 8자리가 아니면 필드를 비웁니다. -->
+        <div class="description">다섯 번째 입력 필드. 입력값이 8자리가 아니면 필드를 비웁니다.</div>
     </div>
 </body>
 </html>
