@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>날짜 형식 입력 확인</title>
+    <script>
+        function validateDate() {
+            var input = document.getElementById('dateInput1').value;
+            if (!/^\d{8}$/.test(input)) {
+                alert('날짜 형식이 올바르지 않습니다. YYYYMMDD 형식으로 입력해주세요.');
+                return false;
+            }
+            var year = parseInt(input.substring(0, 4), 10);
+            var month = parseInt(input.substring(4, 6), 10) - 1; // JavaScript의 month는 0부터 시작합니다.
+            var day = parseInt(input.substring(6, 8), 10);
+
+            var date = new Date(year, month, day);
+            if (date.getFullYear() !== year || date.getMonth() !== month || date.getDate() !== day) {
+                alert('유효하지 않은 날짜입니다.');
+                return false;
+            }
+            alert('유효한 날짜입니다!');
+            return true;
+        }
+
+        function validateInput(element) {
+            element.value = element.value.replace(/[^0-9]/g, '').slice(0, 8);
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="dateInput1" placeholder="YYYYMMDD" maxlength="8">
+    <button onclick="validateDate()">확인</button>
+    
+    <form>
+        <input type="text" id="dateInput2" pattern="\d{8}" title="날짜를 YYYYMMDD 형식으로 입력해주세요. 예: 20240229" required>
+        <input type="submit">
+    </form>
+  
+    <input type="text" id="dateInput3" oninput="validateInput(this)" placeholder="YYYYMMDD" maxlength="8">
+    <input type="text" id="dateInput4" oninput="validateInput(this)" placeholder="YYYYMMDD" maxlength="8">
+    <input type="text" id="dateInput5" oninput="validateInput(this)" onblur="if (this.value.length !== 8) this.value = '';" placeholder="YYYYMMDD" maxlength="8">
+</body>
+</html>
